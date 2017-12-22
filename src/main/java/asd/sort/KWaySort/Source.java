@@ -74,4 +74,8 @@ public class Source implements Comparable {
     public Element getCurrentElement() {
         return currentElement;
     }
+
+    public String getFilePath() {
+        return filePath;
+    }
 }

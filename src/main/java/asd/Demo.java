@@ -18,17 +18,19 @@ import java.util.Set;
 public class Demo {
 
     static final Logger logger = LogManager.getLogger();
+    static final int LINES_TO_BE_GENERATED = 10_000_000;
+    static final int TEMP_ARR_LENGTH = 1_000_000;
 
 
     public static void main(String[] args) throws IOException {
         Stopwatch stopwatch = Stopwatch.createStarted();
-        InputFileGenerator.setLinesAmount(100000000);
+        InputFileGenerator.setLinesAmount(LINES_TO_BE_GENERATED);
         InputFileGenerator.generateInputFile();
 
         Sort sortAlgoritm = new MergeSort();
 //        Sort sortAlgoritm = new InsertionSort();
         SortFacade sortFacade = new SortFacade(InputFileGenerator.getInputFileName(),sortAlgoritm);
-        sortFacade.setTEMP_ARRAY_LENGTH(10000000);
+        sortFacade.setTEMP_ARRAY_LENGTH(TEMP_ARR_LENGTH);
 
         sortFacade.sortChunks();
 

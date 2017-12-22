@@ -9,9 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class MergeAndSort {
     private List<String> tempSortedFileNames;
@@ -20,6 +18,8 @@ public class MergeAndSort {
     private File resultFile;
     private BufferedWriter writer;
     private static final Logger logger = LogManager.getLogger();
+    private Set<Element> bufferToRemoveDuplBeforeDump = new LinkedHashSet<>();
+    private static final int MAX_TEMP_BUF_SIZE = 10000;
 
     public MergeAndSort(List<String> tempSortedFileNames) throws IOException {
         this.tempSortedFileNames = tempSortedFileNames;
@@ -45,16 +45,34 @@ public class MergeAndSort {
             Element minElement = minHolder.getCurrentElement();
             dumpResult(minElement);
             boolean hasNext = minHolder.pickNextElement();
-            if(!hasNext)
+            if(!hasNext) {
                 sortedSorces.remove(minHolder);
+                logger.info("Temp source file merged -> " + minHolder.getFilePath());
+            }
         }
 
         logger.info("Merge takes -> " + stopwatch.stop().elapsed().getSeconds());
     }
 
     private void dumpResult(Element element) throws IOException {
+        if(bufferToRemoveDuplBeforeDump.size() < MAX_TEMP_BUF_SIZE) {
+            bufferToRemoveDuplBeforeDump.add(element);
+        } else {
+            writeAndFludh(bufferToRemoveDuplBeforeDump);
+            bufferToRemoveDuplBeforeDump = new LinkedHashSet<>();
+            bufferToRemoveDuplBeforeDump.add(element);
+        }
         writer.write(element.toString());
         writer.newLine();
         writer.flush();
+    }
+
+    private void writeAndFludh(Set<Element> set) throws IOException {
+        for (Element e: set){
+            writer.write(e.toString());
+            writer.newLine();
+        }
+        writer.flush();
+
     }
 }

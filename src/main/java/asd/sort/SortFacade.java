@@ -11,7 +11,6 @@ import java.util.*;
 public class SortFacade {
    private static final Logger logger = LogManager.getLogger();
     private String fileName;
-    private int chungSize = 100;
 
     private File inputFile;
     private Sort sortStrategy;
@@ -51,8 +50,21 @@ public class SortFacade {
                 tempArr[tempArrayIndexPointer] = new Element(Long.valueOf(line), currentlineNumber);
             }
         }
-        //TODO dump what was left
+        //TODO remove nulls from last array
+//        logger.debug("The Last Chunk prepared for sorting");
+//        Element[] noNulls = removeNulls(tempArr);
+//        Element[] sorted =  sortWrapper(noNulls);
+//        TempFilesManager.dumpToTempFile(sorted);
         reader.close();
+    }
+
+    private Element[] removeNulls(Element[] arr){
+        int notNullSize = 0;
+        int indexIter = 0;
+        while (arr[indexIter]!=null)
+            notNullSize++;
+
+        return Arrays.copyOfRange(arr, 0, notNullSize);
     }
 
     private Element[] sortWrapper(Element[] inputArr){
@@ -74,9 +86,6 @@ public class SortFacade {
         return size;
     }
 
-    public int getChungSize() {
-        return chungSize;
-    }
 
     public void setTEMP_ARRAY_LENGTH(int TEMP_ARRAY_LENGTH) {
         this.TEMP_ARRAY_LENGTH = TEMP_ARRAY_LENGTH;
