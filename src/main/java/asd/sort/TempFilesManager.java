@@ -36,6 +36,7 @@ public class TempFilesManager {
     }
 
     public static List<String> getTempFilesList() {
+        logger.info("Amount of created temporary files is -> " + tempFilesList.size());
         return tempFilesList;
     }
 }

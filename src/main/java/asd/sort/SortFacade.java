@@ -1,30 +1,28 @@
 package asd.sort;
 
-import asd.sort.sortingAlgortims.InsertionSort;
 import asd.sort.sortingAlgortims.Sort;
 import com.google.common.base.Stopwatch;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.*;
 
 public class SortFacade {
-    Set<Long> set;
+   private static final Logger logger = LogManager.getLogger();
     private String fileName;
     private int chungSize = 100;
-    private int chunkCounter;
-    private List<File> filesList;
-    private File inputFile;
-    private int writerFlushFrequancy = 100000;
-    private Set<Long> temporarySetStorage;
 
-    private Sort sortAlgoritm;
+    private File inputFile;
+    private Sort sortStrategy;
     int TEMP_ARRAY_LENGTH = 25_000;
 
+    static int chunksCounter;
+
     public SortFacade(String inputFileName, Sort sort) {
-        this.filesList = new ArrayList<>();
         this.fileName = inputFileName;
         inputFile = new File(inputFileName);
-        this.sortAlgoritm = sort;
+        this.sortStrategy = sort;
     }
 
 
@@ -45,15 +43,27 @@ public class SortFacade {
                 tempArrayIndexPointer++;
                 currentlineNumber++;
             }else {
-                System.out.println("Chunk prepared for sorting");
-                Element[] sorted = sortAlgoritm.sort(tempArr);
+                logger.debug("Chunk prepared for sorting");
+                Element[] sorted = sortWrapper(tempArr);
                 TempFilesManager.dumpToTempFile(sorted);
                 tempArr = new Element[TEMP_ARRAY_LENGTH];
                 tempArrayIndexPointer = 0;
                 tempArr[tempArrayIndexPointer] = new Element(Long.valueOf(line), currentlineNumber);
             }
         }
+        //TODO dump what was left
         reader.close();
+    }
+
+    private Element[] sortWrapper(Element[] inputArr){
+        logger.debug(chunksCounter + ". Sort of chunk started");
+        chunksCounter++;
+        Stopwatch stopwatch = Stopwatch.createStarted();
+
+        Element[] result = sortStrategy.sort(inputArr);
+
+        logger.info("Chunk sorting started using algoritm: " + sortStrategy.getClass().getName() + "And takes -> " + stopwatch.stop().elapsed().getSeconds());
+        return result;
     }
 
     private Double getInputFileSize(){

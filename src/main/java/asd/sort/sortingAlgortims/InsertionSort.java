@@ -6,7 +6,7 @@ import com.google.common.base.Stopwatch;
 public class InsertionSort implements Sort {
     static int counter = 1;
     public static long[] sort(long [] inputArr){
-        System.out.println("Started insertion sort on array with length -> " + inputArr.length);
+//        System.out.println("Started insertion sort on array with length -> " + inputArr.length);
         Stopwatch stopwatch = Stopwatch.createStarted();
         long temp;
         for(int i = 0; i< inputArr.length; i++){
@@ -18,14 +18,14 @@ public class InsertionSort implements Sort {
                 }
             }
         }
-        System.out.println(counter + ".Sorting takes(sec) -> " + stopwatch.stop().elapsed().getSeconds());
+//        System.out.println(counter + ".Sorting takes(sec) -> " + stopwatch.stop().elapsed().getSeconds());
         counter++;
         return inputArr;
 
     }
 
     public Element[] sort(Element[] inputArr){
-        System.out.println("Started insertion sort on array with length -> " + inputArr.length);
+//        System.out.println("Started insertion sort on array with length -> " + inputArr.length);
         Stopwatch stopwatch = Stopwatch.createStarted();
         Element temp;
         for(int i = 0; i< inputArr.length; i++){
@@ -37,7 +37,7 @@ public class InsertionSort implements Sort {
                 }
             }
         }
-        System.out.println(counter + ".Sorting takes(sec) -> " + stopwatch.stop().elapsed().getSeconds());
+//        System.out.println(counter + ".Sorting takes(sec) -> " + stopwatch.stop().elapsed().getSeconds());
         counter++;
         return inputArr;
     }
