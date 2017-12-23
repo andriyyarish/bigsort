@@ -1,5 +1,7 @@
 package asd.sort;
 
+import java.util.Objects;
+
 public class Element {
     long value;
     long firstLineWhereFounded;
@@ -36,5 +38,20 @@ public class Element {
     @Override
     public String toString() {
         return value + "->"+ firstLineWhereFounded;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Element element = (Element) o;
+        return value == element.value &&
+                firstLineWhereFounded == element.firstLineWhereFounded;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(value);
     }
 }

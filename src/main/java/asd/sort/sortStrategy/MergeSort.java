@@ -1,12 +1,9 @@
-package asd.sort.sortingAlgortims;
+package asd.sort.sortStrategy;
 
 import asd.sort.Element;
 import com.google.common.base.Stopwatch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.Arrays;
-import java.util.Random;
 
 /**
  * Created by andy on 8/3/2017.

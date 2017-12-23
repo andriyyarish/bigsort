@@ -50,7 +50,8 @@ public class MergeAndSort {
                 logger.info("Temp source file merged -> " + minHolder.getFilePath());
             }
         }
-
+        writeAndFlush(bufferToRemoveDuplBeforeDump);
+        bufferToRemoveDuplBeforeDump = null;
         logger.info("Merge takes -> " + stopwatch.stop().elapsed().getSeconds());
     }
 
@@ -58,16 +59,16 @@ public class MergeAndSort {
         if(bufferToRemoveDuplBeforeDump.size() < MAX_TEMP_BUF_SIZE) {
             bufferToRemoveDuplBeforeDump.add(element);
         } else {
-            writeAndFludh(bufferToRemoveDuplBeforeDump);
+            writeAndFlush(bufferToRemoveDuplBeforeDump);
             bufferToRemoveDuplBeforeDump = new LinkedHashSet<>();
             bufferToRemoveDuplBeforeDump.add(element);
         }
-        writer.write(element.toString());
-        writer.newLine();
-        writer.flush();
+//        writer.write(element.toString());
+//        writer.newLine();
+//        writer.flush();
     }
 
-    private void writeAndFludh(Set<Element> set) throws IOException {
+    private void writeAndFlush(Set<Element> set) throws IOException {
         for (Element e: set){
             writer.write(e.toString());
             writer.newLine();

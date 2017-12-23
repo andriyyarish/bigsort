@@ -12,6 +12,8 @@ import java.util.Random;
 
 public class InputFileGenerator {
     static int LINES_AMOUNT = 1_000_000;
+    static int maxBufferSize = 1000;
+    static int bufferIterator = 0;
     static final String INPUT_FILE_NAME = "input.txt";
     static final Logger logger = LogManager.getLogger();
 
@@ -24,23 +26,22 @@ public class InputFileGenerator {
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         int linesAmount = LINES_AMOUNT;
         logger.info("File generation started. Number of lines with random int that going to be generated -> " + linesAmount);
-        int tenThousand = 0;
 
         Stopwatch stopwatch = Stopwatch.createStarted();
         for(int i = 0; i<linesAmount; i++){
             long random = new Random().nextLong();
             writer.write(String.valueOf(random));
             writer.newLine();
-            tenThousand++;
-            if(tenThousand == 10000) {
+            bufferIterator++;
+            if(bufferIterator == maxBufferSize) {
                 writer.flush();
-//                System.out.println("Ten thousand done in -> " + timeElapsed);
-                tenThousand = 0;
+                bufferIterator = 0;
             }
         }
         stopwatch.stop();
         logger.info("Amount of lines that was generated: " + linesAmount + " takes in seconds -> " + stopwatch.elapsed().getSeconds());
 
+        writer.flush();
         writer.close();
     }
 

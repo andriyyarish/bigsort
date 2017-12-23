@@ -1,4 +1,4 @@
-package asd.sort.sortingAlgortims;
+package asd.sort.sortStrategy;
 
 import asd.sort.Element;
 

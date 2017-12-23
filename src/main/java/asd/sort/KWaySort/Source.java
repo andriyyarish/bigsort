@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
-
+import java.util.Objects;
 
 
 public class Source implements Comparable {
@@ -69,6 +69,21 @@ public class Source implements Comparable {
                 "filePath='" + filePath + '\'' +
                 ", currentLine='" + currentLine + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Source source = (Source) o;
+        return Objects.equals(file, source.file) &&
+                Objects.equals(currentElement, source.currentElement);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(file, currentElement);
     }
 
     public Element getCurrentElement() {
