@@ -2,11 +2,14 @@ package asd.sort.sortStrategy;
 
 import asd.sort.Element;
 import com.google.common.base.Stopwatch;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class InsertionSort implements Sort {
+    private static final Logger logger = LogManager.getLogger();
     static int counter = 1;
     public static long[] sort(long [] inputArr){
-//        System.out.println("Started insertion sort on array with length -> " + inputArr.length);
+        logger.debug("Started insertion sort on array with length -> " + inputArr.length);
         Stopwatch stopwatch = Stopwatch.createStarted();
         long temp;
         for(int i = 0; i< inputArr.length; i++){
@@ -18,14 +21,14 @@ public class InsertionSort implements Sort {
                 }
             }
         }
-//        System.out.println(counter + ".Sorting takes(sec) -> " + stopwatch.stop().elapsed().getSeconds());
+        logger.trace(counter + ".Sorting takes(sec) -> " + stopwatch.stop().elapsed().getSeconds());
         counter++;
         return inputArr;
 
     }
 
     public Element[] sort(Element[] inputArr){
-//        System.out.println("Started insertion sort on array with length -> " + inputArr.length);
+        logger.trace("Started insertion sort on array with length -> " + inputArr.length);
         Stopwatch stopwatch = Stopwatch.createStarted();
         Element temp;
         for(int i = 0; i< inputArr.length; i++){
@@ -37,7 +40,7 @@ public class InsertionSort implements Sort {
                 }
             }
         }
-//        System.out.println(counter + ".Sorting takes(sec) -> " + stopwatch.stop().elapsed().getSeconds());
+        logger.debug(counter + ".Sorting takes(sec) -> " + stopwatch.stop().elapsed().getSeconds());
         counter++;
         return inputArr;
     }

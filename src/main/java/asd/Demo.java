@@ -16,18 +16,18 @@ import java.util.List;
 public class Demo {
 
     static final Logger logger = LogManager.getLogger();
-    static final int LINES_TO_BE_GENERATED = 3000;
-    static final int TEMP_ARR_LENGTH = 2000;
+
+    static final int TEMP_ARR_LENGTH = 30_000_000; // 20 ml +- 1gb, 40ml +-2gb out of memory
 
 
     public static void main(String[] args) throws IOException {
         Stopwatch stopwatch = Stopwatch.createStarted();
-        InputFileGenerator.setLinesAmount(LINES_TO_BE_GENERATED);
-        InputFileGenerator.generateInputFile();
+        InputFileGenerator inGen = new InputFileGenerator();
+        inGen.generateInputFile();
 
-//        Sort sortAlgoritm = new MergeSort();
-        Sort sortAlgoritm = new InsertionSort();
-        SortFacade sortFacade = new SortFacade(InputFileGenerator.getInputFileName(),sortAlgoritm);
+        Sort sortAlgoritm = new MergeSort();
+//        Sort sortAlgoritm = new InsertionSort();
+        SortFacade sortFacade = new SortFacade(inGen.getINPUT_FILE_NAME(),sortAlgoritm);
         sortFacade.setTEMP_ARRAY_LENGTH(TEMP_ARR_LENGTH);
 
         sortFacade.sortChunks();

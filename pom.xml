@@ -17,7 +17,17 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>asd.Demo</mainClass>
+                </configuration>
+            </plugin>
+
         </plugins>
+
     </build>
 
     <dependencies>
@@ -40,4 +50,6 @@
             <version>2.10.0</version>
         </dependency>
     </dependencies>
+
+
 </project>

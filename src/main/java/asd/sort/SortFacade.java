@@ -36,7 +36,6 @@ public class SortFacade {
         Element [] tempArr = new Element[TEMP_ARRAY_LENGTH];
         Stopwatch stopwatch = Stopwatch.createStarted();
         while ((line = reader.readLine()) != null){
-            System.out.println(currentlineNumber + "-> " + line);
             if(tempArrayIndexPointer < TEMP_ARRAY_LENGTH) {
                 Element element = new Element(Long.valueOf(line), currentlineNumber);
                 tempArr[tempArrayIndexPointer] = element;
